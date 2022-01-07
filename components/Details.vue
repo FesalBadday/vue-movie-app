@@ -1,0 +1,89 @@
+<template>
+  <div class="container movie-details">
+    <a href="/" class="btn">Previous Page</a>
+    <div class="info">
+      <div class="poster">
+        <img
+          :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
+          alt=""
+        />
+      </div>
+      <div class="details">
+        <h1>{{ movie.title }}</h1>
+        <p class="facts tagline">
+          <span v-for="(category, i) in movie.genres" :key="i"
+            ><span v-if="i === 0">Category: </span>{{ category.name
+            }}<span v-if="i !== movie.genres.length - 1">, </span></span
+          >
+        </p>
+        <p class="facts">
+          <span>Date Released:</span>
+          {{
+            new Date(movie.release_date).toLocaleString("en-us", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })
+          }}
+        </p>
+        <p class="facts">
+          <span>Duration:</span>
+          {{ Math.floor(movie.runtime / 60) + ":" + (movie.runtime % 60) }}
+        </p>
+        <p class="facts"><span>Overview:</span> {{ movie.overview }}</p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    movie: Object,
+  },
+};
+</script>
+
+<style lang="scss">
+.movie-details {
+  color: #f8f8ff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 32px 16px;
+  .btn {
+    align-self: flex-start;
+    margin-bottom: 32px;
+  }
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    color: #f8f8ff;
+    @media (min-width: 800px) {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+    .poster {
+      img {
+        width: 100%;
+        @media (min-width: 800px) {
+          width: initial;
+        }
+      }
+    }
+    .details {
+      h1 {
+        font-size: 3rem;
+      }
+      .facts {
+        margin-top: 12px;
+        font-size: 20px;
+        line-height: 1.5;
+      }
+    }
+  }
+}
+</style>
