@@ -1,5 +1,7 @@
 # Movies API App
 
+- [See Live](https://fe-movie.netlify.app)
+
 ## Attributions :
 
 - [The Movie Database (TMDB) API](https://developers.themoviedb.org/3/getting-started/introduction) Is what I'm using to get all movies.
