@@ -7,10 +7,7 @@
           v-if="cast.profile_path"
           :src="`https://image.tmdb.org/t/p/w500/${cast.profile_path}`"
         />
-        <img
-          v-else
-          src="../static/assets/no-img.svg"
-        />
+        <img v-else src="../static/assets/no-img.svg" />
       </div>
       <div class="info">
         <p>{{ cast.name }}</p>
@@ -34,13 +31,13 @@ export default {
   flex-wrap: wrap;
   justify-content: flex-start;
   gap: 1rem;
+  padding: 32px 16px;
 
   h1 {
     flex: -1;
     width: 100%;
     font-size: 4rem;
     color: #f8f8ff;
-    padding: 1rem;
   }
 
   .info {
