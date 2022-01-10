@@ -9,10 +9,7 @@
           :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
           alt=""
         />
-        <img
-          v-else
-          src="../static/assets/no-img.svg"
-        />
+        <img v-else src="../static/assets/no-img.svg" />
       </div>
       <div class="details">
         <h1>{{ movie.title }}</h1>
@@ -40,6 +37,9 @@
           }}
         </p>
         <p class="facts"><span>Overview:</span> {{ movie.overview }}</p>
+        <div class="trailer">
+          <iframe :src="`https://www.youtube.com/embed/${trailer}`"></iframe>
+        </div>
       </div>
     </div>
   </div>
@@ -49,6 +49,7 @@
 export default {
   props: {
     movie: Object,
+    trailer: String,
   },
 };
 </script>
@@ -98,6 +99,13 @@ export default {
         margin-top: 12px;
         font-size: 20px;
         line-height: 1.5;
+      }
+      .trailer {
+        padding-top: 2rem;
+        iframe {
+          width: 100%;
+          height: 600px;
+        }
       }
     }
   }

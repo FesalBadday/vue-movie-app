@@ -4,7 +4,7 @@
 
   <!-- Movie Info -->
   <div v-else>
-    <Details :movie="movie" />
+    <Details :movie="movie" :trailer="trailer" />
     <Cast :cast="casts" />
   </div>
 </template>
@@ -32,7 +32,8 @@ export default {
   data() {
     return {
       //apiKey: process.env.VUE_APP_API_KEY,
-      movie: "",
+      movie: {},
+      trailer: "",
       casts: [],
     };
   },
@@ -44,15 +45,26 @@ export default {
       const result = await data;
       this.movie = result.data;
       this.getCast();
+      this.getTrailer();
     },
     async getCast() {
-      //this.casts = [];
       const data = axios.get(
         `https://api.themoviedb.org/3/movie/${this.$route.params.id}/credits?api_key=${this.$route.params.apiKey}`
       );
       const result = await data;
       result.data.cast.forEach((cast) => {
         this.casts.push(cast);
+      });
+    },
+    async getTrailer() {
+      const data = axios.get(
+        `https://api.themoviedb.org/3/movie/${this.$route.params.id}/videos?api_key=${this.$route.params.apiKey}`
+      );
+      const result = await data;
+      result.data.results.forEach((video) => {
+        if (video.name === "Official Trailer") {
+          this.trailer = video.key;
+        }
       });
     },
   },
