@@ -5,7 +5,8 @@
 ## Attributions :
 
 - [The Movie Database (TMDB) API](https://developers.themoviedb.org/3/getting-started/introduction) Is what I'm using to get all movies.
-- [Patua One](https://fonts.google.com/specimen/Patua+One) Font By [LatinoType](https://fonts.google.com/?query=LatinoType) From [Google Fonts](https://fonts.google.com). [License](https://developers.google.com/fonts)
+- [Patua One](https://fonts.google.com/specimen/Patua+One) Font By [LatinoType](https://fonts.google.com/?query=LatinoType) From [Google Fonts](https://fonts.google.com). [License](https://developers.google.com/fonts).
+- [No image available](https://upload.wikimedia.org/wikipedia/commons/1/16/No_image_available_450_x_600.svg) From [Wikimedia](https://commons.wikimedia.org/wiki/File:No_image_available_450_x_600.svg).
 
 ## Build Setup
 
