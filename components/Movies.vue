@@ -1,53 +1,61 @@
 <template>
-  <div class="main">
-    <div class="container">
-      <!-- Searched Movies  -->
-      <div id="movies-list" v-if="searchInput !== ''" class="movies-list">
-        <div class="movie" v-for="(movie, i) in searchedMovies" :key="i">
-          <div class="poster">
-            <img
-              :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
-              alt=""
-            />
-            <p class="review">{{ movie.vote_average }}</p>
-            <p class="overview">{{ movie.overview }}</p>
-          </div>
-          <div class="info">
-            <NuxtLink
-              class="btn"
-              :to="{
-                name: 'movie-id',
-                params: { id: movie.id, apiKey: apiKey },
-              }"
-            >
-              More Info
-            </NuxtLink>
-          </div>
+  <div class="container">
+    <!-- Searched Movies  -->
+    <div id="movies-list" v-if="searchInput !== ''" class="movies-list">
+      <div class="movie" v-for="(movie, i) in searchedMovies" :key="i">
+        <div class="poster">
+          <img
+            v-if="movie.poster_path"
+            :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
+            alt=""
+          />
+          <img
+            v-else
+            src="../static/assets/no-img.svg"
+          />
+          <p class="review">{{ movie.vote_average }}</p>
+          <p class="overview">{{ movie.overview }}</p>
+        </div>
+        <div class="info">
+          <NuxtLink
+            class="btn"
+            :to="{
+              name: 'movie-id',
+              params: { id: movie.id, apiKey: apiKey },
+            }"
+          >
+            More Info
+          </NuxtLink>
         </div>
       </div>
+    </div>
 
-      <!-- Movies  -->
-      <div id="movies-list" v-else class="movies-list">
-        <div class="movie" v-for="(movie, i) in movie" :key="i">
-          <div class="poster">
-            <img
-              :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
-              alt=""
-            />
-            <p class="review">{{ movie.vote_average }}</p>
-            <p class="overview">{{ movie.overview }}</p>
-          </div>
-          <div class="info">
-            <NuxtLink
-              class="btn"
-              :to="{
-                name: 'movie-id',
-                params: { id: movie.id, apiKey: apiKey },
-              }"
-            >
-              More Info
-            </NuxtLink>
-          </div>
+    <!-- Movies  -->
+    <div id="movies-list" v-else class="movies-list">
+      <div class="movie" v-for="(movie, i) in movie" :key="i">
+        <div class="poster">
+          <img
+            v-if="movie.poster_path"
+            :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
+            alt=""
+          />
+          <img
+            v-else
+            src="../static/assets/no-img.svg"
+          />
+          <p class="review">{{ movie.vote_average }}</p>
+          <p class="overview">{{ movie.overview }}</p>
+        </div>
+        <div class="info">
+          <NuxtLink
+            class="btn"
+            :to="{
+              name: 'movie-id',
+              params: { id: movie.id, apiKey: apiKey },
+            }"
+          >
+            More Info
+          </NuxtLink>
         </div>
       </div>
     </div>
@@ -57,8 +65,8 @@
 <script>
 export default {
   props: {
-    apiKey: String,
     searchInput: String,
+    apiKey: String,
     movie: Array,
     searchedMovies: Array,
   },
@@ -67,15 +75,20 @@ export default {
 
 <style lang="scss">
 .main {
+  display: flex;
+  background-color: #222222;
+  padding: 2rem 1rem;
+
   .loading {
     padding-top: 120px;
     align-items: flex-start;
   }
-  .search {
-    display: flex;
-    padding: 2rem 1rem;
+
+  .menu {
+    flex: 0.2;
+    width: 100%;
+    padding-right: 1rem;
     input {
-      max-width: 350px;
       width: 100%;
       padding: 12px 6px;
       font-size: 14px;
@@ -84,27 +97,26 @@ export default {
         outline: none;
       }
     }
-    .btn {
-      border-top-left-radius: 0;
-      border-bottom-left-radius: 0;
+
+    .select {
+      color: #f8f8ff;
+      padding: 1rem 0;
+      select {
+        padding: 6px 6px;
+        width: 100%;
+      }
+    }
+
+    .links,
+    .genres {
+      display: flex;
+      flex-direction: column;
     }
   }
-  .select {
-    display: flex;
-    align-items: center;
-    color: #f8f8ff;
-    padding-left: 2rem;
-    select {
-      padding: 6px 6px;
-    }
-  }
-  .links {
-    display: flex;
-    flex-wrap: wrap;
-    padding-left: 2rem;
-  }
+
   .container {
-    padding: 32px 16px;
+    flex: 0.8;
+
     .movies-list {
       display: grid;
       column-gap: 32px;

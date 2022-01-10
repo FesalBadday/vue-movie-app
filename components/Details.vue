@@ -1,15 +1,22 @@
 <template>
   <div class="container movie-details">
-    <a href="/" class="btn">Previous Page</a>
+    <!-- <a href="/" class="btn">Previous Page</a> -->
+    <NuxtLink class="btn" :to="{ name: 'index' }">Back</NuxtLink>
     <div class="info">
       <div class="poster">
         <img
+          v-if="movie.poster_path"
           :src="`https://image.tmdb.org/t/p/w500/${movie.poster_path}`"
           alt=""
+        />
+        <img
+          v-else
+          src="../static/assets/no-img.svg"
         />
       </div>
       <div class="details">
         <h1>{{ movie.title }}</h1>
+        <h2>{{ movie.vote_average }}</h2>
         <p class="facts tagline">
           <span v-for="(category, i) in movie.genres" :key="i"
             ><span v-if="i === 0">Category: </span>{{ category.name
@@ -28,7 +35,9 @@
         </p>
         <p class="facts">
           <span>Duration:</span>
-          {{ Math.floor(movie.runtime / 60) + ":" + (movie.runtime % 60) }}
+          {{
+            Math.floor(movie.runtime / 60) + "h " + (movie.runtime % 60) + "m"
+          }}
         </p>
         <p class="facts"><span>Overview:</span> {{ movie.overview }}</p>
       </div>
@@ -77,6 +86,13 @@ export default {
     .details {
       h1 {
         font-size: 3rem;
+      }
+      h2 {
+        background-color: #008000;
+        width: fit-content;
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        margin: 2rem 0;
       }
       .facts {
         margin-top: 12px;
