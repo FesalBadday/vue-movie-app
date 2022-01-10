@@ -62,7 +62,7 @@ export default {
       );
       const result = await data;
       result.data.results.forEach((video) => {
-        if (video.name === "Official Trailer") {
+        if (video.type === "Trailer") {
           this.trailer = video.key;
         }
       });
