@@ -5,13 +5,14 @@
   <!-- Movie Info -->
   <div v-else>
     <Details :movie="movie" />
+    <Cast :cast="casts" />
   </div>
 </template>
 
 <script>
 import axios from "axios";
 export default {
-  name: "singleMovie",
+  name: "movie",
   async fetch() {
     await this.getMovie();
   },
@@ -32,17 +33,27 @@ export default {
     return {
       //apiKey: process.env.VUE_APP_API_KEY,
       movie: "",
+      casts: [],
     };
   },
   methods: {
     async getMovie() {
       const data = axios.get(
-        `https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=${
-          process.env.VUE_APP_API_KEY || this.$route.params.apiKey
-        }`
+        `https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=${this.$route.params.apiKey}`
       );
       const result = await data;
       this.movie = result.data;
+      this.getCast();
+    },
+    async getCast() {
+      //this.casts = [];
+      const data = axios.get(
+        `https://api.themoviedb.org/3/movie/${this.$route.params.id}/credits?api_key=${this.$route.params.apiKey}`
+      );
+      const result = await data;
+      result.data.cast.forEach((cast) => {
+        this.casts.push(cast);
+      });
     },
   },
 };
