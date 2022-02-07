@@ -31,7 +31,7 @@ export default {
   },
   data() {
     return {
-      //apiKey: process.env.VUE_APP_API_KEY,
+      apiKey: this.$route.params.apiKey ? this.$route.params.apiKey : process.env.VUE_APP_API_KEY,
       movie: {},
       trailer: "",
       casts: [],
@@ -40,7 +40,7 @@ export default {
   methods: {
     async getMovie() {
       const data = axios.get(
-        `https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=${this.$route.params.apiKey}`
+        `https://api.themoviedb.org/3/movie/${this.$route.params.id}?api_key=${this.apiKey}`
       );
       const result = await data;
       this.movie = result.data;
@@ -49,7 +49,7 @@ export default {
     },
     async getCast() {
       const data = axios.get(
-        `https://api.themoviedb.org/3/movie/${this.$route.params.id}/credits?api_key=${this.$route.params.apiKey}`
+        `https://api.themoviedb.org/3/movie/${this.$route.params.id}/credits?api_key=${this.apiKey}`
       );
       const result = await data;
       result.data.cast.forEach((cast) => {
@@ -58,7 +58,7 @@ export default {
     },
     async getTrailer() {
       const data = axios.get(
-        `https://api.themoviedb.org/3/movie/${this.$route.params.id}/videos?api_key=${this.$route.params.apiKey}`
+        `https://api.themoviedb.org/3/movie/${this.$route.params.id}/videos?api_key=${this.apiKey}`
       );
       const result = await data;
       result.data.results.forEach((video) => {

@@ -92,8 +92,6 @@ export default {
         : (this.title = "All Movies");
     },
     async getMovies() {
-      this.movies = [];
-
       const data = axios.get(
         this.url === "all"
           ? `https://api.themoviedb.org/3/discover/movie?api_key=${this.apiKey}&page=${this.pageNum}&with_genres=${this.genre}`
@@ -101,6 +99,7 @@ export default {
       );
 
       const result = await data;
+      this.movies = [];
       result.data.results.forEach((movie) => {
         this.movies.push(movie);
       });
